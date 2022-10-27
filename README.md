@@ -1,4 +1,3 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=8801740&assignment_repo_type=AssignmentRepo)
 # Project 3: Suffix array construction
 
 You should implement a suffix array construction algorithm. You can choose to implement the naive O(n² log n)-time construction algorithm based on just sorting all the suffixes using a comparison based algorithm, the O(n²) algorithm you get if you radix sort the suffixes, or you can use the suffix tree from project 2: If you run through the suffix tree, and traverse children in lexicographical order, you will see each leaf in lexicographical order as well, and if you collect all the leaf-labels you have your suffix array.
@@ -30,3 +29,15 @@ Once you have implemented the `sa` program (and tested it to the best of your ab
 ## Running time
 
 *List experiments and results that show that both the construction algorithm and the search algorithm works in the expected running time. Add figures by embedding them here, as you learned how to do in project 1.*
+
+# ANWSER (searching tree):
+
+SA construction:
+![](figs/SA_construction_vanilla.png)
+
+SA construction (y/log10(x)):
+![](figs/SA_construnction_log10-devided.png)
+
+Runtimes for varying read lengths:
+![](figs/read_lengths.png)
+
