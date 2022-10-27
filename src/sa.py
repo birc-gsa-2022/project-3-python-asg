@@ -41,7 +41,7 @@ def SuffixArray(string):
     
     '''
     if string == '' or string == None:
-        return [0]
+        return None
     
     string += '$'
     rank_list = list(range(len(string)))
