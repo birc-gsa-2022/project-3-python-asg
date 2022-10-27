@@ -41,7 +41,7 @@ def SuffixArray(string):
     
     '''
     if string == '' or string == None:
-        return None
+        return [0]
     
     string += '$'
     rank_list = list(range(len(string)))
@@ -87,6 +87,7 @@ def binary_search(SA, string, pattern):
     
     if SA == '' or SA == None:
         return None
+    
     string+='$'
     SA_positions = []
     # Binary search.
@@ -171,23 +172,29 @@ def read_fastq():
 #####################
 # Code:
     
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    fasta_recs = read_fasta()
-    fastq_recs = read_fastq()
+#     fasta_recs = read_fasta()
+#     fastq_recs = read_fastq()
     
-    for fa_rec in fasta_recs:
-        ref = fa_rec[1]
-        SA = SuffixArray(ref)
-        for fq_rec in fastq_recs:
-            read = fq_rec[1]
-            matches = binary_search(SA, ref, read)
-            for match in matches:
-                read_name = fq_rec[0]
-                read_seq = fq_rec[1]
-                edits = get_edits(read_seq, fa_rec[1][match:match+len(fq_rec[1])])
-                cigar = edits_to_cigar(edits[2])
-                output = [read_name,fa_rec[0],str(match+1),cigar,read_seq]
-                print('\t'.join(output))
+#     for fa_rec in fasta_recs:
+#         ref = fa_rec[1]
+#         SA = SuffixArray(ref)
+#         for fq_rec in fastq_recs:
+#             read = fq_rec[1]
+#             matches = binary_search(SA, ref, read)
+#             for match in matches:
+#                 read_name = fq_rec[0]
+#                 read_seq = fq_rec[1]
+#                 edits = get_edits(read_seq, fa_rec[1][match:match+len(fq_rec[1])])
+#                 cigar = edits_to_cigar(edits[2])
+#                 output = [read_name,fa_rec[0],str(match+1),cigar,read_seq]
+#                 print('\t'.join(output))
 
 ###############################################################
+
+
+string = ''
+print(SuffixArray(string))
+print(get_suffix_array(string))
+

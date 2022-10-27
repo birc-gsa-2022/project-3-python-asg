@@ -18,13 +18,27 @@ Once you have implemented the `sa` program (and tested it to the best of your ab
 
 *Which algorithm did you use to construct the suffix array. What is its running time?*
 
+# ANWSER (Algorithm):
+I used Prefix-doubling.
+The doubling of prefixes (in each iter) gives a max of log(n) iterations and since bucket-sort is O(n) per iteration we have a total running time of O(nlog(n)).
+I haven't implemented the bucket/radix-sort 'yet' so i guess the running time of my implementation is O(nlog(n)2) for now.
+
 ## Insights you may have had while implementing the algorithm
 
+# ANWSER (Insights):
+I found out that SA's are really cleaver, SA-IS is a motherfucker to implement and prefix doubling is a very nice (and simple) little algorithm. 
+
 ## Problems encountered if any
+
+# ANWSER (Problems):
+I found Radix-sorting my list of tuples pretty hard. I actually think i made it work but it was still slover than my old implementation (which i in the meantime simplified a lot) so i went back. 
 
 ## Validation
 
 *How did you validate that the construct and the search algorithm works?*
+
+# ANWSER (Validation):
+I compared my SA implementation against a naive SA algorithm constantly while building it (see sa.py; get_suffix_array()). Likewise i compared the output of my exact-pattern-algorithm with a pattern-finder based on re.finditer() (see Runtimes.py; re_find()) 500000 times on randomly generated DNA-strings. 
 
 ## Running time
 
@@ -38,6 +52,21 @@ SA construction:
 SA construction (y/log10(x)):
 ![](figs/SA_construnction_log10-devided.png)
 
+Seems like my algorithm runs nlog(n)? 
+(maybe i just need a larger example to see the other log(n))..
+
 Runtimes for varying read lengths:
-![](figs/read_lengths.png)
+![](figs/read_lengths_vanilla.png)
+
+Runtimes for varying read lengths (y/log2(x)):
+![](figs/read_lengths_log2-devided.png)
+
+So the runtimes for varying read lengths seems more linear than nlog(m) ish to me (which is its theoretical search time). 
+Probably this is because the log(m) is pretty negligible for patterns this short (though reads >200 to 1200 is not short for seq reads). 
+I don't know how it is usually done but in my implementation i search the SA for other occurrences left/right from first discovered pattern with respect to SA position. This means that it is only the first discovery which takes nlog(m) all other incidents should be O(n). 
+
+
+
+
+
 

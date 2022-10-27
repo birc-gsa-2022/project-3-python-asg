@@ -28,42 +28,42 @@ def re_find(string, pattern):
 ################################################################
 # tests:
   
-# # Test suffixtree-algorithm vs naive-algorithm for same result:
-# for i in range(50000):
-#     print('Iteration nr: ', i+1)
-#     ref = simulate_string(random.randint(40,100))
-#     read = get_exact_read(ref, random.randint(1,30))
-#     if sorted(SA_read_mapper(ref, read)) != sorted(re_find(ref,read)):
-#         print('Algorithm mistake!')
-#         print(ref)
-#         print(read)
-#         break
-#     if i+1 == 50000:
-#         print('DONE')
+# Test suffixtree-algorithm vs naive-algorithm for same result:
+for i in range(50000):
+    print('Iteration nr: ', i+1)
+    ref = simulate_string(random.randint(40,100))
+    read = get_exact_read(ref, random.randint(1,30))
+    if sorted(SA_read_mapper(ref, read)) != sorted(re_find(ref,read)):
+        print('Algorithm mistake!')
+        print(ref)
+        print(read)
+        break
+    if i+1 == 50000:
+        print('DONE')
 
 
-# # Runtimes for the array construction (varying ref lengths):
-# ref_lengths = [25000,50000,75000,100000,125000,150000,175000]
-# runtimes = []
-# for idx in range(7):
-#     print('Iteration nr: ', idx+1) 
-#     replicate = []
-#     for j in range(10):
-#         ref = simulate_string(ref_lengths[idx])
-#         start_time = time.time()
-#         SuffixArray(ref)
-#         end_time = time.time()
-#         replicate.append(end_time-start_time)
-#     runtimes.append(np.mean(replicate))
-# # plot running times:
-# for i in range(len(runtimes)):
-#     runtimes[i] = runtimes[i]/math.log10(ref_lengths[i])
-# fig, ax = plt.subplots()
-# sns.lineplot(x=ref_lengths, y=runtimes, ax=ax)
-# plt.xlabel('ref length')
-# plt.ylabel('runtime (s)')
-# plt.tight_layout()
-# plt.show()
+# Runtimes for the array construction (varying ref lengths):
+ref_lengths = [25000,50000,75000,100000,125000,150000,175000]
+runtimes = []
+for idx in range(7):
+    print('Iteration nr: ', idx+1) 
+    replicate = []
+    for j in range(10):
+        ref = simulate_string(ref_lengths[idx])
+        start_time = time.time()
+        SuffixArray(ref)
+        end_time = time.time()
+        replicate.append(end_time-start_time)
+    runtimes.append(np.mean(replicate))
+# plot running times:
+for i in range(len(runtimes)):
+    runtimes[i] = runtimes[i]/math.log10(ref_lengths[i])**2
+fig, ax = plt.subplots()
+sns.lineplot(x=ref_lengths, y=runtimes, ax=ax)
+plt.xlabel('ref length')
+plt.ylabel('runtime (s)')
+plt.tight_layout()
+plt.show()
 
 
 # Runtimes for mapping (varying read lengths):
@@ -133,11 +133,10 @@ for idx in range(5):
     runtimes_50.append(np.mean(runtimes_50_replicate))
 
 # plot running times:
-read_lengths = [100,200,300,400,500]
-runtimes = [runtimes_10,runtimes_20,runtimes_30,runtimes_40,runtimes_50]
-for run in runtimes:
-    for i in range(len(run)):
-        run[i] = run[i]/math.log10(read_lengths[i])
+# runtimes = [runtimes_10,runtimes_20,runtimes_30,runtimes_40,runtimes_50]
+# for run in runtimes:
+#     for i in range(len(run)):
+#         run[i] = run[i]/math.log2(ref_lengths[i])
 fig, ax = plt.subplots()
 sns.lineplot(x=ref_lengths, y=runtimes_50, ax=ax, label='read length = 50')
 sns.lineplot(x=ref_lengths, y=runtimes_40, ax=ax, label='read length = 40')
