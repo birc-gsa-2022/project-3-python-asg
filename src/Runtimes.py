@@ -11,8 +11,8 @@ import seaborn as sns
 ################################################################
 # functions:
     
-# from sa import SuffixArray
-from PrefixDoubling import SuffixArray  # Cython converted version.
+from sa import SuffixArray
+# from PrefixDoubling import SuffixArray  # Cython converted version.
 from sa import binary_search
 from SEQsimulator import simulate_string
 from SEQsimulator import get_exact_read
@@ -65,8 +65,8 @@ for idx in range(7):
         replicate.append(end_time-start_time)
     runtimes.append(np.mean(replicate))
 # plot running times:
-for i in range(len(runtimes)):
-    runtimes[i] = runtimes[i]/math.log10(ref_lengths[i])**2
+# for i in range(len(runtimes)):
+#     runtimes[i] = runtimes[i]/math.log10(ref_lengths[i])**2
 fig, ax = plt.subplots()
 sns.lineplot(x=ref_lengths, y=runtimes, ax=ax)
 plt.xlabel('ref length')
