@@ -10,8 +10,9 @@ import seaborn as sns
 
 ################################################################
 # functions:
-
-from sa import SuffixArray
+    
+# from sa import SuffixArray
+from PrefixDoubling import SuffixArray  # Cython converted version.
 from sa import binary_search
 from SEQsimulator import simulate_string
 from SEQsimulator import get_exact_read
@@ -27,7 +28,15 @@ def re_find(string, pattern):
 
 ################################################################
 # tests:
-  
+
+# 1 mio test:
+string = simulate_string(1000000)
+start_time = time.time()
+SuffixArray(string)
+end_time = time.time()
+print(end_time-start_time)
+
+
 # Test suffixtree-algorithm vs naive-algorithm for same result:
 for i in range(50000):
     print('Iteration nr: ', i+1)
@@ -133,10 +142,10 @@ for idx in range(5):
     runtimes_50.append(np.mean(runtimes_50_replicate))
 
 # plot running times:
-# runtimes = [runtimes_10,runtimes_20,runtimes_30,runtimes_40,runtimes_50]
-# for run in runtimes:
-#     for i in range(len(run)):
-#         run[i] = run[i]/math.log2(ref_lengths[i])
+runtimes = [runtimes_10,runtimes_20,runtimes_30,runtimes_40,runtimes_50]
+for run in runtimes:
+    for i in range(len(run)):
+        run[i] = run[i]/math.log2(ref_lengths[i])
 fig, ax = plt.subplots()
 sns.lineplot(x=ref_lengths, y=runtimes_50, ax=ax, label='read length = 50')
 sns.lineplot(x=ref_lengths, y=runtimes_40, ax=ax, label='read length = 40')

@@ -42,28 +42,27 @@ def SuffixArray(string):
     '''
     if string == '' or string == None:
         return None
-    
     string += '$'
-    rank_list = list(range(len(string)))
     index = {v: i for i, v in enumerate(sorted(set(string)))}
     string = [index[v] for v in string]
+    rank_list = list(range(len(string)))
+    SA = [None]*len(string)
+    tuple_list = SA[:]
     M,j = 0,1
     while M < len(string)-1:
-        tuple_list = []
         for i in range(len(string)):
-            ij = i+j
-            if ij < len(string):
-                key = (string[i], string[ij])
+            i_j = i+j
+            if i_j < len(string):
+                key = (string[i], string[i_j])
             else: 
                 key = (string[i], string[-1])
-            tuple_list.append(key)
-        j=j*2
+            tuple_list[i] = key
+        j*=2
         keys = sorted(set(tuple_list))
         ranks = dict(zip(keys, rank_list))
         string = [ranks[tuple_list[i]] for i in range(len(string))]
         M = max(string)
-    SA = [None]*len(string)
-    for i in range(len(string)):
+    for i in rank_list:
         SA[string[i]] = i
     return SA
 
