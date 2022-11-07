@@ -89,16 +89,13 @@ def binary_search(SA, string, pattern):
     
     string+='$'
     SA_positions = []
-    # Binary search.
-    upper, lower = len(SA), 0, 
-    last, match =  None, None
-    j = 0
-    S = 0
-    max_runs = math.ceil(math.log2(len(SA)))
-    while j < max_runs and S == 0:
-        mid = lower + (upper - lower) // 2
-        if mid == last: 
-            S = 1
+    
+    # Binary search:
+    hi, lo = len(SA), 0, 
+    match = None
+    B = 0
+    while lo < hi and B == 0:
+        mid = (lo + hi) // 2
         count = 0
         for i in range(count, len(pattern)):
             if pattern[i] == string[SA[mid]+i]:
@@ -106,16 +103,14 @@ def binary_search(SA, string, pattern):
             if count == len(pattern):
                 match = mid    
                 SA_positions.append(SA[match])
-                S = 1
-                break
+                B=1
             elif pattern[i] > string[SA[mid]+i]:
-                    lower = mid
-                    break
+                lo = mid + 1
+                break
             elif pattern[i] < string[SA[mid]+i]:
-                    upper = mid
-                    break
-        last=mid
-        j+=1 
+                hi = mid
+                break
+    # Scan up/down from match pos:
     if match != None:
         k=1
         while match-k >= 0 and string[SA[match-k]:SA[match-k]+len(pattern)] == pattern:
@@ -191,4 +186,6 @@ if __name__ == '__main__':
                 print('\t'.join(output))
 
 ###############################################################
+
+
 

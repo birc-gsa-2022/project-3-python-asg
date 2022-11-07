@@ -30,7 +30,7 @@ def re_find(string, pattern):
 # tests:
 
 # 1 mio test:
-string = simulate_string(1000000)
+string = simulate_string(100000)
 start_time = time.time()
 SuffixArray(string)
 end_time = time.time()
